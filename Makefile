@@ -1,11 +1,21 @@
 CXX = g++
-CFLAGS  = -g -Wall
+CXXFLAGS  = -g -Wall
+CXXFLAGS += -I/usr/local/include
+CXXFLAGS += -L/usr/local/lib
+CXXFLAGS += --coverage
 TARGET = aoc16
 
-all: $(TARGET)
+all: test
 
-$(TARGET): utils.o main.o
-	$(CXX) $(CFLAGS) -o $@ $^
+
+test: main.o utils.o test.o
+	$(CXX) $(CXXFLAGS)  -o $@ $^ -lgtest -lpthread
+
+coverage: test
+	./test
+	mkdir coverage
+	lcov --directory . --capture --output-file coverage/coverage.info
+	genhtml  --output-directory coverage coverage/coverage.info
 
 clean:
-	rm -f $(TARGET) *.o
+	rm -rf $(TARGET) *.o coverage *.gcda *.gcno test

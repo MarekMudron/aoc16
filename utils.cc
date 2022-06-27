@@ -13,9 +13,8 @@ string hexToBin(char hexChar) {
     else if (hexChar >= 'A' && hexChar <= 'F')
         hexChar = hexChar - 'A' + 10;
     else {
-        // hrows std::invalid_argument exception if invalid hex character is used
-
-        throw std::invalid_argument( string("Received invalid hex value: \'") + string(1, hexChar) + "\'" );
+        // throws std::invalid_argument exception if invalid hex character is used
+        throw invalid_argument( string("Received invalid hex value: \'") + string(1, hexChar) + "\'" );
     }
     // binary representation of hex character, indexed by implicit hex value
     string conversionDict[] = {
@@ -44,16 +43,12 @@ string hexToBin(char hexChar) {
 */
 string hexToBin(string hexStr) {
     stringstream ss;
-    try {
-        // consecutively append binary representation of each hex character
-        for (const char &c : hexStr) {
-            ss << hexToBin(c);
-        }
-    }catch(invalid_argument &e) {
-        // throws error if invalid character is read
-        cerr<<e.what() <<endl;
-        exit(-1);
+
+    // consecutively append binary representation of each hex character
+    for (const char &c : hexStr) {
+        ss << hexToBin(c);
     }
+    
     return ss.str();
 }
 
