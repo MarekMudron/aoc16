@@ -1,1 +1,28 @@
 https://adventofcode.com/2021/day/16
+
+
+input: Hex string
+
+1) hex to binary
+
+---    | ---    |  and so on
+version type ID
+
+4 - literal value
+other - operators (not important...)
+
+  - single binary number
+  - leading zeros padding to match length 4 * N
+  - each group has 1 bit prefix, last group 0 bit prefix
+
+
+GRAMMAR
+
+S = V100L | S = VXXXP
+V = XXX                 // version number
+L = 1XXXXL | 0XXXX      // payload of literal
+X = 0 | 1
+P = 0NH | 1MH           // operator packet
+N = XXXXXXXXXXXXXXX     // number of bits - 15b number
+M = XXXXXXXXXXX         // num of subpackets - 11b number
+H = SH | S              // sequence of packets
