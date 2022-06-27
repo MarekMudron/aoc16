@@ -2,6 +2,7 @@
 
 ## Usage
 build tests: `make test` \
+run tests: `./test` \
 build code coverage report: `make coverage`
 
 ## Implementation
